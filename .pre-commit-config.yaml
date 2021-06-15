@@ -1,0 +1,61 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v3.2.0
+  hooks:
+    - id: trailing-whitespace
+    - id: mixed-line-ending
+    - id: check-added-large-files
+      args: ['--maxkb=1000']
+    - id: end-of-file-fixer
+    - id: requirements-txt-fixer
+    - id: check-yaml
+    - id: check-json
+    - id: pretty-format-json
+      args: ['--autofix']
+    - id: check-merge-conflict
+    - id: check-case-conflict
+    - id: check-docstring-first
+
+- repo: local
+  hooks:
+  - id: isort
+    name: isort
+    stages: [commit]
+    language: system
+    entry: isort
+    types: [python]
+
+  - id: black
+    name: black
+    stages: [commit]
+    language: system
+    entry: black
+    types: [python]
+
+  - id: mypy
+    name: mypy
+    stages: [commit]
+    language: system
+    entry: mypy
+    types: [python]
+
+  - id: flake8
+    name: flake8
+    stages: [commit]
+    language: system
+    entry: flake8
+    types: [python]
+    exclude: setup.py
+
+- repo: https://github.com/nbQA-dev/nbQA
+  rev: 0.7.0
+  hooks:
+    - id: nbqa-black
+      additional_dependencies: [black==20.8b1]
+      args: [--nbqa-mutate]
+    - id: nbqa-flake8
+      additional_dependencies: [flake8]
+      args: [--nbqa-mutate]
+    - id: nbqa-isort
+      additional_dependencies: [isort==5.7.0]
+      args: [--nbqa-mutate]
