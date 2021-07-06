@@ -7,7 +7,17 @@ Collection of useful data science, machine learning and data engineering topics 
 
 ## Contents
 
+- [Best Practices](#bp)
 - [Matplotlib](#mpl)
+
+
+<a id='bp'></a>
+## Best Practices
+Articles about Python and data science best practices
+
+|Title|Article|Repository|
+|-------------|:-------------:|:----------:|
+| Which Python string formatting method should you be using in your data science project? | [Blog](https://engineeringfordatascience.com/posts/python_string_formatting_for_data_science/) | [Link](https://github.com/julian-west/e4ds-snippets/blob/master/best-practices/string-formatting/python-string-formatting-for-ds.ipynb)|
 
 
 <a id='mpl'></a>
