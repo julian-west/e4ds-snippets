@@ -17,7 +17,7 @@ Articles about Python and data science best practices
 
 |Title|Article|Repository|
 |-------------|:-------------:|:----------:|
-| Which Python string formatting method should you be using in your data science project? | [Blog](https://engineeringfordatascience.com/posts/python_string_formatting_for_data_science/) | [Link](https://github.com/julian-west/e4ds-snippets/blob/master/best-practices/string-formatting/python-string-formatting-for-ds.ipynb)|
+| Which Python string formatting method should you be using in your data science project? | [Blog](https://engineeringfordatascience.com/posts/python_string_formatting_for_data_science/) | [Link](https://github.com/julian-west/e4ds-snippets/blob/master/best-practices/string-formatting/)|
 
 
 <a id='mpl'></a>
