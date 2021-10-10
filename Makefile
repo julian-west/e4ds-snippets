@@ -11,3 +11,9 @@ clean-test:
 	rm -fr .tox/
 	rm -f .coverage
 	rm -fr htmlcov/
+
+lint-notebooks:
+	nbqa black .
+	nbqa isort .
+	nbqa flake8 .
+	nbqa mypy .
