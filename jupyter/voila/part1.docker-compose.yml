@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  voila_demo_part1:
+    build:
+      context: .
+      dockerfile: Dockerfiles/part1.Dockerfile
+    ports:
+      - 8866:8866
+    volumes:
+      - ./part1:/part1
