@@ -1,6 +1,7 @@
 """Application user interface (GUI)"""
 
 import ipywidgets as widgets
+import pandas as pd
 from content import ContentSection
 from IPython.display import display
 from ipywidgets.widgets.widget_button import Button
@@ -25,23 +26,29 @@ class Gui:
         self.main = main
         self.tabs = tabs
 
-    def build(self):
-        """build user interface from components"""
+    def build_user_input_section(self):
+        self.user_input_section = widgets.HBox(
+            [
+                widgets.VBox(list(self.user_inputs.values())),
+                self.action_button,
+            ]
+        )
 
+    def build_tabs(self, stock_prices: pd.DataFrame):
+        """Build tabs and give them a title"""
         self.tab_container = widgets.Tab(
-            children=[tab.content for tab in self.tabs],
+            children=[tab.build(stock_prices) for tab in self.tabs],
             layout=widgets.Layout(height="398px"),
         )
 
         for i, tab in enumerate(self.tabs):
             self.tab_container.set_title(i, tab.name)
 
-        display(
-            widgets.HBox(
-                [
-                    widgets.VBox([widget for widget in self.user_inputs.values()]),
-                    self.action_button,
-                ]
-            )
-        )
-        display(self.main.content, self.tab_container)
+    def build(self, stock_prices: pd.DataFrame):
+        """build user interface from components"""
+        self.build_user_input_section()
+        self.build_tabs(stock_prices)
+
+        display(self.user_input_section)
+        display(self.main.build(stock_prices))
+        display(self.tab_container)
