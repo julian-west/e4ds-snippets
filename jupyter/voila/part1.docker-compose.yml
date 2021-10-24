@@ -9,4 +9,4 @@ services:
       - 8866:8866
       - 8888:8888
     volumes:
-      - ./part1:/part1
+      - .:/home/jovyan/work/

@@ -28,6 +28,9 @@ conda create -n voila python=3.9 -y
 # activate environment
 conda activate voila
 
+# install packages
+pip install -r requirements.txt
+
 # run the voila application
-voila part1/stock_analysis_eda.ipynb
+voila stock_comparison_app.ipynb
 ```

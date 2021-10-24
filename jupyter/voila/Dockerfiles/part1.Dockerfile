@@ -1,12 +1,9 @@
-FROM jupyter/base-notebook:python-3.8.8
+FROM jupyter/base-notebook:python-3.9.7
 
 COPY requirements.txt .
 
 RUN python -m pip install -r requirements.txt
 
-ARG APP_PATH=part1
-ENV APP_PATH=${APP_PATH}
+COPY . /home/jovyan/work/
 
-COPY $APP_PATH ./$APP_PATH
-
-CMD python -m voila /$APP_PATH/stock_analysis_eda.ipynb
+CMD python -m voila /home/jovyan/work/stock_comparison_app.ipynb
