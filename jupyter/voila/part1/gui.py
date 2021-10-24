@@ -7,6 +7,9 @@ from IPython.display import display
 from ipywidgets.widgets.widget_button import Button
 from user_input import UserInputWidget
 
+WIDTH = "900px"
+PADDING = "10px"
+
 
 class Gui:
     """Responsible for building the entire user interface"""
@@ -31,14 +34,15 @@ class Gui:
             [
                 widgets.VBox(list(self.user_inputs.values())),
                 self.action_button,
-            ]
+            ],
+            layout=widgets.Layout(border="dashed 2px", padding=PADDING, width=WIDTH),
         )
 
     def build_tabs(self, stock_prices: pd.DataFrame):
         """Build tabs and give them a title"""
         self.tab_container = widgets.Tab(
             children=[tab.build(stock_prices) for tab in self.tabs],
-            layout=widgets.Layout(height="398px"),
+            layout=widgets.Layout(height="398px", width=WIDTH),
         )
 
         for i, tab in enumerate(self.tabs):

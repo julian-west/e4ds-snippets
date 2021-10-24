@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 
 import ipywidgets as widgets
 import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
 import pandas as pd
 import seaborn as sns
 
@@ -21,6 +22,7 @@ class ContentSection(ABC):
         self.content = widgets.Output()
 
     def _render_html_description(self):
+        """Convert description string into HTML widget"""
         return widgets.HTML(value=(f"<p><strong>{self.description}</strong></p>"))
 
     @abstractmethod
@@ -38,13 +40,14 @@ class RebasedStockGraph(ContentSection):
 
     def build(self, stock_prices: pd.DataFrame) -> widgets.widgets.widget_box.VBox:
         self.refresh_content(stock_prices)
-        return widgets.VBox([self.content])
+        return widgets.VBox([self.content], layout=widgets.Layout(padding="10px"))
 
     def refresh_content(self, stock_prices: pd.DataFrame):
         self.content.clear_output()
         with self.content:
             stock_prices.rebase().plot(figsize=(12, 5))
-            plt.title("Share price performance (rebased)")
+            plt.title("Share price performance (rebased to start date)")
+            plt.ylabel("Share price performance (% growth)")
             plt.show()
 
 
@@ -90,6 +93,10 @@ class Drawdown(ContentSection):
     def refresh_content(self, stock_prices: pd.DataFrame):
         self.content.clear_output()
         with self.content:
-            stock_prices.to_drawdown_series().plot()
-            plt.title("Drawdown Plot")
+            ax = stock_prices.to_drawdown_series().plot(figsize=(12, 5))
+            ax.yaxis.set_major_formatter(
+                mtick.PercentFormatter(xmax=1, decimals=0, symbol="%")
+            )
+            plt.title("Stock Drawdown")
+            plt.ylabel("Percentage fall from previous high")
             plt.show()
