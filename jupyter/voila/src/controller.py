@@ -1,6 +1,6 @@
 """Controller to deal with callbacks - might move this to notebook"""
-from data import DataLoader
-from gui import Gui
+from src.data import DataLoader
+from src.gui import Gui
 
 
 class Controller:

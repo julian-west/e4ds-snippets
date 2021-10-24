@@ -2,10 +2,10 @@
 
 import ipywidgets as widgets
 import pandas as pd
-from content import ContentSection
 from IPython.display import display
 from ipywidgets.widgets.widget_button import Button
-from user_input import UserInputWidget
+from src.content import ContentSection
+from src.user_input import UserInputWidget
 
 WIDTH = "900px"
 PADDING = "10px"
