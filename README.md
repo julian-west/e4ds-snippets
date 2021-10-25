@@ -1,4 +1,4 @@
-[![View on GitHub](https://img.shields.io/badge/GitHub-View_on_GitHub-blue?logo=GitHub)](https://github.com/julian-west/e4ds-snippets) [![Engineering for Data Science](https://img.shields.io/badge/Hugo-Engineering%20For%20Data%20Science-yellowgreen?logo=hugo)](https://engineeringfordatascience.com/)  
+[![View on GitHub](https://img.shields.io/badge/GitHub-View_on_GitHub-blue?logo=GitHub)](https://github.com/julian-west/e4ds-snippets) [![Engineering for Data Science](https://img.shields.io/badge/Hugo-Engineering%20For%20Data%20Science-yellowgreen?logo=hugo)](https://engineeringfordatascience.com/)
 
 
 # Engineering for Data Science (e4ds) - Snippets
@@ -9,6 +9,7 @@ Collection of useful data science, machine learning and data engineering topics 
 
 - [Best Practices](#bp)
 - [Matplotlib](#mpl)
+- [Jupyter](#j)
 
 
 <a id='bp'></a>
@@ -26,3 +27,10 @@ Articles about Python and data science best practices
 |Title|Article|Repository|
 |-------------|:-------------:|:----------:|
 | Plotting subplots in a loop | [Blog](https://engineeringfordatascience.com/posts/matplotlib_subplots/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/matplotlib)|
+
+<a id='j'></a>
+## Jupyter
+
+|Title|Article|Repository|
+|-------------|:-------------:|:----------:|
+| (Part 1) Voilà! Interactive Python Dashboards Straight from your Jupyter Notebook | [Blog](https://engineeringfordatascience.com/posts/voila_python_dashboard_part1/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/jupyter/voila)|
