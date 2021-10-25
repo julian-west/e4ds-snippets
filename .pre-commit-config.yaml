@@ -5,7 +5,7 @@ repos:
     - id: trailing-whitespace
     - id: mixed-line-ending
     - id: check-added-large-files
-      args: ['--maxkb=1000']
+      args: ['--maxkb=3000']
     - id: end-of-file-fixer
     - id: requirements-txt-fixer
     - id: check-yaml

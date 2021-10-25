@@ -5,6 +5,8 @@ This folder contains the source code for the Voila Webapp Series:
 - Part 2: Optimising Voila Webapp Performance (coming soon)
 - Part 3: Deploy your Voila Webapp on GCP (coming soon)
 
+![voila app](./static/convert_to_voila.gif "Voila web application from a notebook")
+
 ## Getting Started
 
 **Docker (recommended)**
