@@ -34,3 +34,4 @@ Articles about Python and data science best practices
 |Title|Article|Repository|
 |-------------|:-------------:|:----------:|
 | (Part 1) Voilà! Interactive Python Dashboards Straight from your Jupyter Notebook | [Blog](https://engineeringfordatascience.com/posts/voila_python_dashboard_part1/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/jupyter/voila)|
+| (Part 2) Voilà! Optimising Python Dashboard Performance | [Blog](https://engineeringfordatascience.com/posts/voila_python_dashboard_part2/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/jupyter/voila)|
