@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  voila_demo_part2_xeus:
+    build:
+      context: .
+      dockerfile: Dockerfiles/part2.xeus.Dockerfile
+    ports:
+      - 8867:8866
+      - 8889:8888
+    volumes:
+      - .:/home/jovyan/work/

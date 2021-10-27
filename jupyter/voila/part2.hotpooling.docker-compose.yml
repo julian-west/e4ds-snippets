@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  voila_demo_part2_hotpooling:
+    build:
+      context: .
+      dockerfile: Dockerfiles/part2.hotpooling.Dockerfile
+    ports:
+      - 8868:8866
+      - 8890:8888
+    volumes:
+      - .:/home/jovyan/work/
