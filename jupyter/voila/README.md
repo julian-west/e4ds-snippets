@@ -3,7 +3,9 @@
 This folder contains the source code for the Voila Webapp Series:
 - [Part 1: Voilà! Interactive Python Dashboards Straight from your Jupyter Notebook](https://engineeringfordatascience.com/posts/voila_python_dashboard_part1/)
 - [Part 2: Voilà! Optimising Python Dashboard Performance](https://engineeringfordatascience.com/posts/voila_python_dashboard_part2/)
-- Part 3: Deploy your Voila Webapp on GCP (coming soon)
+- [Part 3: Voilà! Deploy your Jupyter notebook application on Heroku](https://engineeringfordatascience.com/posts/voila_python_dashboard_part3/)
+
+> View the Voilà application deployed on Heroku [here](http://stock-comparison-app156.herokuapp.com/)
 
 ![voila app](./static/convert_to_voila.gif "Voila web application from a notebook")
 
@@ -13,15 +15,15 @@ This folder contains the source code for the Voila Webapp Series:
 
 If you are familiar with Docker you can use the `docker-compose` files to build the environment.
 
-- Run the original app without optimisation (localhost:8866)
+- Run the original app without optimisation (available at localhost:8866)
   ```
   docker-compose -f part1.docker-compose.yml up --build
   ```
-- Run the app using xeus-python kernel (localhost:8867)
+- Run the app using xeus-python kernel (available at localhost:8867)
   ```
   docker-compose -f part2.xeus.docker-compose.yml up --build
   ```
-- Run the app using hotpooling and xeus-python kernel (localhost:8888)
+- Run the app using hotpooling and xeus-python kernel (available at localhost:8888)
   ```
   docker-compose -f part2.hotpooling.docker-compose.yml up --build
   ```
