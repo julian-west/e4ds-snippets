@@ -1,2 +1,4 @@
+fsspec
+gcsfs
 google-cloud-storage
 great-expectations==0.13.41

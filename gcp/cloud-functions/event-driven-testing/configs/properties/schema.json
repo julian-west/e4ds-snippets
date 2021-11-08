@@ -1,0 +1,80 @@
+[
+  {
+    "description": "Property ID",
+    "mode": "REQUIRED",
+    "name": "propertyid",
+    "type": "INTEGER"
+  },
+  {
+    "description": "Customer ID",
+    "mode": "REQUIRED",
+    "name": "customerid",
+    "type": "INTEGER"
+  },
+  {
+    "description": "Property Address",
+    "mode": "NULLABLE",
+    "name": "address",
+    "type": "STRING"
+  },
+  {
+    "description": "Town name",
+    "mode": "NULLABLE",
+    "name": "town",
+    "type": "STRING"
+  },
+  {
+    "description": "Country",
+    "mode": "NULLABLE",
+    "name": "country",
+    "type": "STRING"
+  },
+  {
+    "description": "Postcode",
+    "mode": "NULLABLE",
+    "name": "postcode",
+    "type": "STRING"
+  },
+  {
+    "description": "Age of property (years)",
+    "mode": "NULLABLE",
+    "name": "propertyage",
+    "type": "INTEGER"
+  },
+  {
+    "description": "Property Type",
+    "mode": "NULLABLE",
+    "name": "propertytype",
+    "type": "STRING"
+  },
+  {
+    "description": "Total Rooms",
+    "mode": "NULLABLE",
+    "name": "totalrooms",
+    "type": "INTEGER"
+  },
+  {
+    "description": "Total bedrooms",
+    "mode": "NULLABLE",
+    "name": "totalbedrooms",
+    "type": "INTEGER"
+  },
+  {
+    "description": "Property Area (SQF)",
+    "mode": "NULLABLE",
+    "name": "propertyarea",
+    "type": "FLOAT"
+  },
+  {
+    "description": "Sale Price (GBP)",
+    "mode": "NULLABLE",
+    "name": "pricesold",
+    "type": "FLOAT"
+  },
+  {
+    "description": "Date of last sale",
+    "mode": "NULLABLE",
+    "name": "solddate",
+    "type": "STRING"
+  }
+]
