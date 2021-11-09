@@ -11,7 +11,7 @@ def read_yml_from_gcs(
 ) -> dict:
     """Read YAML file from GCS location"""
     bucket: storage.bucket.Bucket = client.get_bucket(gcs_bucket)
-    content: str = bucket.blob(file_name).download_as_string()
+    content: bytes = bucket.blob(file_name).download_as_string()
     # TODO: Move to general function
     content = (
         content.decode("utf-8")
@@ -28,8 +28,8 @@ def update_metadata(
     client: storage.Client = storage.Client(),
 ) -> None:
     """Set a blob's metadata."""
-    bucket = client.bucket(gcs_bucket)
-    blob = bucket.get_blob(file_name)
+    bucket: storage.bucket.Bucket = client.bucket(gcs_bucket)
+    blob: storage.blob.Blob = bucket.get_blob(file_name)
     blob.metadata = metadata
     blob.patch()
 
@@ -42,8 +42,8 @@ def check_validation_status(
     client: storage.Client = storage.Client(),
 ) -> bool:
     """Check if object has already been validated"""
-    bucket = client.bucket(gcs_bucket)
-    blob = bucket.get_blob(file_name)
+    bucket: storage.bucket.Bucket = client.bucket(gcs_bucket)
+    blob: storage.blob.Blob = bucket.get_blob(file_name)
     if isinstance(blob.metadata, dict):
         if blob.metadata.get("validated"):
             return True

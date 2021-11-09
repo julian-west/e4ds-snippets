@@ -5,7 +5,6 @@
 ```
 ├── cloud-functions          <- cloud functions code
 ├── configs                  <- configuration files
-├── great_expectations       <- great expectations playground
 └── scripts                  <- utility scripts
 
 ```
