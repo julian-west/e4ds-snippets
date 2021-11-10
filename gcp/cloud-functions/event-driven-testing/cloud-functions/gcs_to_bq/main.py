@@ -1,25 +1,19 @@
 """Move data from GCS to BigQuery"""
 import logging
 import os
-from typing import Optional
 
-from src.bq_loaders import (
-    AvroBigQueryLoader,
-    BigQueryLoader,
-    CsvBigQueryLoader,
-    NewLineJsonBigQueryLoader,
-    ParquetBigQueryLoader,
-)
+from google.cloud import bigquery, storage
+from src.bq_loaders import BigQueryLoader
 
 PROJECT = os.environ["PROJECT"]
 BUCKET = os.environ["BUCKET"]
 VALIDATION_BUCKET = os.environ["VALIDATION_BUCKET"]
 
 extension_mapping = {
-    "csv": CsvBigQueryLoader,
-    "parquet": ParquetBigQueryLoader,
-    "avro": AvroBigQueryLoader,
-    "json": NewLineJsonBigQueryLoader,
+    "csv": bigquery.SourceFormat.CSV,
+    "avro": bigquery.SourceFormat.AVRO,
+    "parquet": bigquery.SourceFormat.PARQUET,
+    "json": bigquery.SourceFormat.NEWLINE_DELIMITED_JSON,
 }
 
 
@@ -32,27 +26,26 @@ def batch_load_bq(data, context):  # pylint: disable=unused-argument
     """Batch load from GCS to Bigquery"""
 
     file_extension = extract_file_extension(data["name"])
-    loader: Optional[BigQueryLoader] = extension_mapping.get(file_extension)
 
-    if loader:
-        # TODO: remove hard coded properties reference
-        loader = loader(
-            project=PROJECT,
-            file_name=data["name"],
-            data_bucket=BUCKET,
-            validation_bucket=VALIDATION_BUCKET,
-            bq_dataset="test_dataset",
-            bq_table="properties",
-            config_path="config/properties/bq_load.json",
-        )
+    # TODO: remove hard coded properties reference
+    # TODO: add method for infering the correct config path based on file name
+    loader = BigQueryLoader(
+        project=PROJECT,
+        data_bucket=BUCKET,
+        validation_bucket=VALIDATION_BUCKET,
+        bq_dataset="test_dataset",
+        bq_table="properties",
+        file_name=data["name"],
+        config_path="config/properties/bq_load.json",
+        gcs_client=storage.Client(),
+        bq_client=bigquery.Client(),
+        source_format=extension_mapping.get(file_extension),
+    )
 
-        loader.load_config()
-        loader.load()
+    loader.load_config()
+    loader.load()
 
-        logging.info("Job finished")
-
-    else:
-        raise ValueError(f"File extension {file_extension} is not supported")
+    logging.info("Job finished")
 
     # destination_table = client.get_table(dataset_ref.table(TABLE))
     # logging.info("Loaded {} rows.".format(destination_table.num_rows))
