@@ -3,7 +3,7 @@
 ## Directory Structure
 
 ```
-├── cloud-functions          <- cloud functions code
+├── data_validation          <- cloud function for data validation
 ├── configs                  <- configuration files
 └── scripts                  <- utility scripts
 
