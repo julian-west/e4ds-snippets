@@ -12,13 +12,11 @@ def read_yml_from_gcs(
     """Read YAML file from GCS location"""
     bucket: storage.bucket.Bucket = client.get_bucket(gcs_bucket)
     content: bytes = bucket.blob(file_name).download_as_string()
-    # TODO: Move to general function
-    content = (
-        content.decode("utf-8")
-        .replace("${PROJECT}", os.environ["PROJECT"])
-        .replace("${VALIDATION_BUCKET}", os.environ["VALIDATION_BUCKET"])
+    decoded: str = content.decode("utf-8")
+    config: str = decoded.replace("${PROJECT}", os.environ["PROJECT"]).replace(
+        "${VALIDATION_BUCKET}", os.environ["VALIDATION_BUCKET"]
     )
-    return yaml.safe_load(content)
+    return yaml.safe_load(config)
 
 
 def update_metadata(
