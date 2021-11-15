@@ -1,5 +1,4 @@
 """Great Expectations Checkpoint"""
-import datetime
 import logging
 import os
 
@@ -7,16 +6,21 @@ from great_expectations.checkpoint import SimpleCheckpoint
 from great_expectations.core.batch import RuntimeBatchRequest
 from great_expectations.data_context import BaseDataContext
 from great_expectations.data_context.types.base import DataContextConfig
-from src.gcs import check_validation_status, read_yml_from_gcs, update_metadata
+from src.gcs import check_trigger_file_path, move_blob, read_yml_from_gcs
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+ch.setFormatter(formatter)
+logger.addHandler(ch)
 
 VALIDATION_BUCKET = os.environ["VALIDATION_BUCKET"]
 
 
 class ValidationError(Exception):
-    """Validation unsuccessful"""
-
-    def __str__(self):
-        return "Validation unsuccessful"
+    """Validation Unsuccessful"""
 
 
 def build_data_context(config: DataContextConfig) -> BaseDataContext:
@@ -51,12 +55,19 @@ def build_batch_request(
 
 def run_validation(gcs_file_path: str) -> None:
     """Run the expectation suite"""
+    yaml_template = {"$VALIDATION_BUCKET": VALIDATION_BUCKET}
+
     project_config = read_yml_from_gcs(
-        VALIDATION_BUCKET, "configs/properties/ge_data_context.yml"
+        bucket_name=VALIDATION_BUCKET,
+        blob_name="configs/properties/ge_data_context.yml",
+        template=yaml_template,
     )
     project_config = DataContextConfig(**project_config)
+
     batch_spec_passthrough = read_yml_from_gcs(
-        VALIDATION_BUCKET, "configs/properties/loading_args.yml"
+        bucket_name=VALIDATION_BUCKET,
+        blob_name="configs/properties/loading_args.yml",
+        template=yaml_template,
     )
     context = build_data_context(config=project_config)
     batch_request = build_batch_request(gcs_file_path, batch_spec_passthrough)
@@ -76,23 +87,33 @@ def run_validation(gcs_file_path: str) -> None:
     checkpoint = SimpleCheckpoint(
         name="properties", data_context=context, **checkpoint_config
     )
+
+    logger.info("Starting Validation")
     checkpoint_result = checkpoint.run()
 
     if checkpoint_result["success"]:
-        logging.info("Validation successful")
+        logger.info("Validation successful")
     else:
-        logging.error("Validation unsuccessful")
+        logger.error("Validation unsuccessful")
         raise ValidationError
 
+    return checkpoint_result["success"]
 
-def main(data, context):
+
+def main(data, context):  # pylint: disable=unused-argument
     """Cloud function"""
+    if not check_trigger_file_path(data["name"], "landing_zone"):
+        return
+
     data_uri = f"gs://{data['bucket']}/{data['name']}"
-    if check_validation_status(data["bucket"], data["name"]):
-        return "Oject already validated"
-    run_validation(data_uri)
-    update_metadata(
-        data["bucket"],
-        data["name"],
-        {"validated": True, "validation_ts": datetime.datetime.now()},
-    )
+    success = run_validation(data_uri)
+    if success:
+        move_blob(
+            bucket_name=data["bucket"], blob_name=data["name"], prefix="validated"
+        )
+    else:
+        move_blob(
+            bucket_name=data["bucket"],
+            blob_name=data["name"],
+            prefix="failed_validation",
+        )
