@@ -9,6 +9,7 @@ from typing import List
 
 from faker import Faker
 from properties import (
+    BadProperty,
     Bungalow,
     Flat,
     House,
@@ -78,6 +79,9 @@ def generate_batch_data(
             data_dump, fieldnames=col_headers, delimiter=",", quoting=csv.QUOTE_ALL
         )
 
+        header_row = dict(zip(col_headers, col_headers))
+        writer.writerow(header_row)
+
         for i in range(num_records):
 
             property_type = random.choice(property_choices)
@@ -118,15 +122,16 @@ def generate_batch_data(
 
 if __name__ == "__main__":
     property_choices = [
-        Flat,
-        SemiDetachedHouse,
         Bungalow,
-        Maisonette,
+        Flat,
         House,
+        Maisonette,
+        SemiDetachedHouse,
         TerracedHouse,
     ]
 
-    dataset_name = "properties"
+    bad_property_choices = property_choices + [BadProperty]
+
     col_headers = [
         "propertyId",
         "address",
@@ -144,9 +149,19 @@ if __name__ == "__main__":
     data_dir = "../data"
     num_records = 100_000
 
+    logger.info("Creating property dataset")
     generate_batch_data(
         property_choices=property_choices,
-        dataset_name=dataset_name,
+        dataset_name="properties",
+        col_headers=col_headers,
+        data_dir=data_dir,
+        num_records=num_records,
+    )
+
+    logger.info("Creating bad property dataset")
+    generate_batch_data(
+        property_choices=bad_property_choices,
+        dataset_name="bad_properties",
         col_headers=col_headers,
         data_dir=data_dir,
         num_records=num_records,

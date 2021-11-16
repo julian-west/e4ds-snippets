@@ -121,3 +121,69 @@ class TerracedHouse(Property):
     max_price: int = 500_000
     min_rooms: int = 5
     max_rooms: int = 9
+
+
+@dataclass
+class BadProperty(Property):
+    """Property with unexepected data to potentially fail the validation tests"""
+
+    name: str = random.choice(
+        [
+            "House",
+            "TerracedHouse",
+            "Maisonette",
+            "Flat",
+            "Semi Detached House",
+            "Detached House",
+            "Mansion",
+            "Shopping Centre",
+        ]
+    )
+
+    min_area: int = -1000
+    max_area: int = 1000
+    min_price: int = -100_000
+    max_price: int = 100
+    min_rooms: int = -100
+    max_rooms: int = 1000
+    chance: bool = random.uniform(0, 1) > 0.8
+
+    def property_age(self, date_sold: str):
+        """Age of property. Cannot be 'younger' than when it was last sold"""
+        min_age: int = (
+            datetime.datetime.today().year
+            - datetime.datetime.strptime(date_sold, "%Y-%m-%d").year
+        )
+        max_age: int = min_age + 100
+        if self.chance:
+            # shouldn't be a string, will fail validation
+            return str(random.randint(min_age, max_age))
+        return random.randint(min_age, max_age)
+
+    def property_area(self):
+        """Specify the area of the property"""
+        if self.chance:
+            # way to big
+            return self.max_area * 100_000
+        return round(random.uniform(self.min_area, self.max_area), 2)
+
+    def price_sold(self):
+        """Specify the sale price of the property"""
+        return round(random.uniform(self.min_price, self.max_price), 2)
+
+    def total_rooms(self):
+        """Specify the total number of rooms in the property"""
+        if self.chance:
+            # should return int
+            return "nine"
+        return random.randint(self.min_rooms, self.max_rooms)
+
+    def total_bedrooms(self, total_rooms: int):
+        """Specify the total number of bedrooms in the property.
+        Must be lower than the total number of rooms
+        """
+        if self.chance:
+            # should return int
+            return "nine"
+        max_bedrooms = max(1, total_rooms - 1)
+        return random.randint(1, max_bedrooms)
