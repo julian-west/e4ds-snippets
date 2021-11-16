@@ -1,6 +1,7 @@
 """Great Expectations Checkpoint"""
 import logging
 import os
+from typing import Any
 
 from great_expectations.checkpoint import SimpleCheckpoint
 from great_expectations.core.batch import RuntimeBatchRequest
@@ -17,10 +18,16 @@ ch.setFormatter(formatter)
 logger.addHandler(ch)
 
 VALIDATION_BUCKET = os.environ["VALIDATION_BUCKET"]
+YAML_TEMPLATE = {"$VALIDATION_BUCKET": VALIDATION_BUCKET}
 
 
 class ValidationError(Exception):
-    """Validation Unsuccessful"""
+    """Validation Unsuccessful Exception"""
+
+
+def build_data_context_config(config: dict[str, Any]) -> DataContextConfig:
+    """Build the data context config from a dictionary"""
+    return DataContextConfig(**config)
 
 
 def build_data_context(config: DataContextConfig) -> BaseDataContext:
@@ -29,14 +36,14 @@ def build_data_context(config: DataContextConfig) -> BaseDataContext:
 
 
 def build_batch_request(
-    gcs_file_path: str, batch_spec_passthrough: dict
+    gcs_file_path: str, batch_spec_passthrough: dict[str, Any]
 ) -> RuntimeBatchRequest:
-    """Build the batch request which specifies which file to test
+    """Build the batch request which specifies which data file to test
 
     Args:
         gcs_file_path (str): gcs file path to the data which needs to be tested
         batch_spec_passthrough (dict): dictionary containing file specific information
-            for reading the file. E.g. pd.read_csv arguments
+            for reading the file. E.g. the pd.read_csv arguments
 
     Returns:
         RuntimeBatchRequest
@@ -53,42 +60,58 @@ def build_batch_request(
     )
 
 
-def run_validation(gcs_file_path: str) -> None:
-    """Run the expectation suite"""
-    yaml_template = {"$VALIDATION_BUCKET": VALIDATION_BUCKET}
-
-    project_config = read_yml_from_gcs(
-        bucket_name=VALIDATION_BUCKET,
-        blob_name="configs/properties/ge_data_context.yml",
-        template=yaml_template,
-    )
-    project_config = DataContextConfig(**project_config)
-
-    batch_spec_passthrough = read_yml_from_gcs(
-        bucket_name=VALIDATION_BUCKET,
-        blob_name="configs/properties/loading_args.yml",
-        template=yaml_template,
-    )
-    context = build_data_context(config=project_config)
-    batch_request = build_batch_request(gcs_file_path, batch_spec_passthrough)
+def build_checkpoint(
+    checkpoint_name: str,
+    expectation_suite_name: str,
+    context: BaseDataContext,
+    batch_request: RuntimeBatchRequest,
+) -> SimpleCheckpoint:
+    """Build the great expectations checkpoint"""
+    file_name = "-".join(batch_request.data_asset_name.split("/")[3:])
 
     checkpoint_config = {
         "config_version": 1.0,
         "class_name": "Checkpoint",
-        "run_name_template": f"%Y%m%d-%H%M%S-{'-'.join(gcs_file_path.split('/')[3:])}",
+        "run_name_template": f"%Y%m%d-%H%M%S-{file_name}",
         "validations": [
             {
                 "batch_request": batch_request.to_json_dict(),
-                "expectation_suite_name": "properties",
+                "expectation_suite_name": expectation_suite_name,
             },
         ],
     }
 
-    checkpoint = SimpleCheckpoint(
-        name="properties", data_context=context, **checkpoint_config
+    return SimpleCheckpoint(
+        name=checkpoint_name, data_context=context, **checkpoint_config
     )
 
-    logger.info("Starting Validation")
+
+def run_validation(gcs_uri: str) -> str:
+    """Run the expectation suite"""
+
+    project_config = read_yml_from_gcs(
+        bucket_name=VALIDATION_BUCKET,
+        blob_name="configs/properties/ge_data_context.yml",
+        template=YAML_TEMPLATE,
+    )
+
+    batch_spec_passthrough = read_yml_from_gcs(
+        bucket_name=VALIDATION_BUCKET,
+        blob_name="configs/properties/loading_args.yml",
+        template=YAML_TEMPLATE,
+    )
+
+    context_config = build_data_context_config(project_config)
+    context = build_data_context(config=context_config)
+    batch_request = build_batch_request(gcs_uri, batch_spec_passthrough)
+    checkpoint = build_checkpoint(
+        checkpoint_name="properties",
+        expectation_suite_name="properties",
+        context=context,
+        batch_request=batch_request,
+    )
+
+    logger.info(f"Starting Validation for {gcs_uri}")
     checkpoint_result = checkpoint.run()
 
     if checkpoint_result["success"]:
