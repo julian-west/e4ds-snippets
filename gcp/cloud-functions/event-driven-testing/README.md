@@ -8,16 +8,11 @@
 │       ├── main.py
 │       └── src
 │           └── gcs.py                      <- Google Cloud Storage utility functions
-├── configs
-│   └── properties
-│       ├── expectations
-│       │   └── properties.json             <- great expectations data expectations
-│       ├── ge_data_context.yml             <- great expectations config
-│       └── loading_args.yml                <- great expectations data loading args
-├── data
+├── data                                    <- store example datasets
 ├── data_generator                          <- module to generate fake properties data
 │   ├── data_generator.py                   <- data generator script
 │   └── properties.py                       <- property definitions and attributes
+├── great_expectations                      <- great expectations configuration store
 └── scripts
     ├── create_resources.sh                 <- create GCS buckets
     ├── deploy_validation_function.sh       <- deploy the validation function on GCP

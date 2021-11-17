@@ -21,7 +21,7 @@ stores:
             class_name: TupleGCSStoreBackend
             project: ${PROJECT}
             bucket: ${VALIDATION_BUCKET}
-            prefix: 'configs/properties/expectations'
+            prefix: 'expectations'
 
     validations_GCS_store:
         class_name: ValidationsStore
@@ -29,7 +29,7 @@ stores:
             class_name: TupleGCSStoreBackend
             project: ${PROJECT}
             bucket: ${VALIDATION_BUCKET}
-            prefix: 'configs/properties/validations'
+            prefix: 'validations'
 
     evaluation_parameter_store:
       class_name: EvaluationParameterStore
@@ -41,7 +41,7 @@ data_docs_sites:
       class_name: TupleGCSStoreBackend
       project: ${PROJECT}
       bucket: ${VALIDATION_BUCKET}
-      prefix: 'configs/properties'
+      prefix:
     site_index_builder:
       class_name: DefaultSiteIndexBuilder
 

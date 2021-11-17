@@ -1,7 +1,6 @@
 """Generate fake property data for the cloud function example"""
 
 import csv
-import datetime
 import logging
 import os
 import random
@@ -27,12 +26,6 @@ ch.setLevel(logging.DEBUG)
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 ch.setFormatter(formatter)
 logger.addHandler(ch)
-
-
-def create_dir_to_save_data(save_dir_location: str):
-    """Create a folder to save the data if it doesn't already exist"""
-    if not os.path.exists(save_dir_location):
-        os.makedirs(save_dir_location)
 
 
 def generate_batch_data(
@@ -66,10 +59,10 @@ def generate_batch_data(
     )
 
     save_dir_location = f"{data_dir}/{dataset_name}"
-    create_dir_to_save_data(save_dir_location)
+    if not os.path.exists(save_dir_location):
+        os.makedirs(save_dir_location)
 
-    timestamp_str = datetime.datetime.now().strftime("%d%m%Y-%H:%M:%S")
-    filename = f"{save_dir_location}/{dataset_name}_{timestamp_str}.csv"
+    filename = f"{save_dir_location}/{dataset_name}.csv"
 
     fake = Faker("en_GB")
     fake.add_provider(Property)

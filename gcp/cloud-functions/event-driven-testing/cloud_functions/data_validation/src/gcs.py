@@ -80,3 +80,14 @@ def check_trigger_file_path(blob_name: str, trigger_prefix: str) -> bool:
 
     """
     return blob_name.startswith(trigger_prefix)
+
+
+def extract_dataset_name(blob_name) -> str:
+    """Get dataset name from the GCS second level 'folder'
+
+    Example:
+        extract_dataset_name("landing_zone/properties/properties.csv")
+        >>>'properties'
+
+    """
+    return blob_name.split("/")[1]

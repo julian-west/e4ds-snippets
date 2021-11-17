@@ -7,7 +7,12 @@ from great_expectations.checkpoint import SimpleCheckpoint
 from great_expectations.core.batch import RuntimeBatchRequest
 from great_expectations.data_context import BaseDataContext
 from great_expectations.data_context.types.base import DataContextConfig
-from src.gcs import check_trigger_file_path, move_blob, read_yml_from_gcs
+from src.gcs import (
+    check_trigger_file_path,
+    extract_dataset_name,
+    move_blob,
+    read_yml_from_gcs,
+)
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -17,8 +22,9 @@ formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(messag
 ch.setFormatter(formatter)
 logger.addHandler(ch)
 
+PROJECT = os.environ["PROJECT"]
 VALIDATION_BUCKET = os.environ["VALIDATION_BUCKET"]
-YAML_TEMPLATE = {"$VALIDATION_BUCKET": VALIDATION_BUCKET}
+YAML_TEMPLATE = {"$PROJECT": PROJECT, "$VALIDATION_BUCKET": VALIDATION_BUCKET}
 
 
 class ValidationError(Exception):
@@ -86,27 +92,28 @@ def build_checkpoint(
     )
 
 
-def run_validation(gcs_uri: str) -> str:
+def run_validation(dataset_name: str, gcs_uri: str) -> str:
     """Run the expectation suite"""
 
     project_config = read_yml_from_gcs(
         bucket_name=VALIDATION_BUCKET,
-        blob_name="configs/properties/ge_data_context.yml",
+        blob_name="great_expectations.yml",
         template=YAML_TEMPLATE,
     )
 
     batch_spec_passthrough = read_yml_from_gcs(
         bucket_name=VALIDATION_BUCKET,
-        blob_name="configs/properties/loading_args.yml",
+        blob_name=f"loading_args/{dataset_name}.yml",
         template=YAML_TEMPLATE,
     )
 
+    logger.info("Building great expectations configs")
     context_config = build_data_context_config(project_config)
     context = build_data_context(config=context_config)
     batch_request = build_batch_request(gcs_uri, batch_spec_passthrough)
     checkpoint = build_checkpoint(
-        checkpoint_name="properties",
-        expectation_suite_name="properties",
+        checkpoint_name=dataset_name,
+        expectation_suite_name=dataset_name,
         context=context,
         batch_request=batch_request,
     )
@@ -128,8 +135,9 @@ def main(data, context):  # pylint: disable=unused-argument
     if not check_trigger_file_path(data["name"], "landing_zone"):
         return
 
+    dataset_name = extract_dataset_name(data["name"])
     data_uri = f"gs://{data['bucket']}/{data['name']}"
-    success = run_validation(data_uri)
+    success = run_validation(dataset_name, data_uri)
     if success:
         move_blob(
             bucket_name=data["bucket"], blob_name=data["name"], prefix="validated"

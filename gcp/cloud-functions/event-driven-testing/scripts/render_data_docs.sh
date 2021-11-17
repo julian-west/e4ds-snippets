@@ -19,5 +19,5 @@ fi
 
 rm -rf data_docs
 mkdir data_docs
-gsutil -m cp -r gs://$VALIDATION_BUCKET/configs/properties/ ./data_docs
-open data_docs/properties/index.html
+gsutil -m cp -r gs://$VALIDATION_BUCKET/* ./data_docs/
+open data_docs/index.html

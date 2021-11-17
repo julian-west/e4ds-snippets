@@ -1,6 +1,4 @@
 *.ipynb
-cloud-functions/test
 *env.yaml
-data_docs
 *.csv
-great_expectations
+data_docs
