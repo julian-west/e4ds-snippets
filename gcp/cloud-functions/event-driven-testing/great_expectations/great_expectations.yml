@@ -1,3 +1,5 @@
+config_version: 3
+
 datasources:
   my_gcs_datasource:
     class_name: Datasource

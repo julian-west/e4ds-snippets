@@ -1,1 +1,2 @@
-uncommitted/
+uncommitted/*
+!uncommitted/edit_properties.ipynb
