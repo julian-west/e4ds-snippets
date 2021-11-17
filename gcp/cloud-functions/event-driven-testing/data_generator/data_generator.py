@@ -109,7 +109,7 @@ def generate_batch_data(
             }
 
             writer.writerow(row)
-            if i % 10_000 == 0:
+            if i % 5_000 == 0:
                 logger.info(f"{i:,}/{num_records:,} records generated")
 
 
@@ -140,7 +140,7 @@ if __name__ == "__main__":
         "priceSold",
     ]
     data_dir = "../data"
-    num_records = 100_000
+    num_records = 10_000
 
     logger.info("Creating property dataset")
     generate_batch_data(
@@ -154,7 +154,7 @@ if __name__ == "__main__":
     logger.info("Creating bad property dataset")
     generate_batch_data(
         property_choices=bad_property_choices,
-        dataset_name="bad_properties",
+        dataset_name="properties_bad",
         col_headers=col_headers,
         data_dir=data_dir,
         num_records=num_records,

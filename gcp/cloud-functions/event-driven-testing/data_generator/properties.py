@@ -49,10 +49,10 @@ class Property(BaseProvider):
 
     def total_bedrooms(self, total_rooms: int) -> int:
         """Specify the total number of bedrooms in the property.
-        Must be lower than the total number of rooms
+        Must be lower than the total number of rooms with a maximum of 10
         """
         max_bedrooms = max(1, total_rooms - 1)
-        return random.randint(1, max_bedrooms)
+        return min(random.randint(1, max_bedrooms), 10)
 
 
 @dataclass
@@ -127,19 +127,7 @@ class TerracedHouse(Property):
 class BadProperty(Property):
     """Property with unexepected data to potentially fail the validation tests"""
 
-    name: str = random.choice(
-        [
-            "House",
-            "TerracedHouse",
-            "Maisonette",
-            "Flat",
-            "Semi Detached House",
-            "Detached House",
-            "Mansion",
-            "Shopping Centre",
-        ]
-    )
-
+    name: str = "Bad Property"
     min_area: int = -1000
     max_area: int = 1000
     min_price: int = -100_000
