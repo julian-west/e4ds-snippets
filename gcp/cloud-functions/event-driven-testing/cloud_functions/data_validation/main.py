@@ -4,6 +4,7 @@ import os
 from typing import Any
 
 from great_expectations.checkpoint import SimpleCheckpoint
+from great_expectations.checkpoint.types.checkpoint_result import CheckpointResult
 from great_expectations.core.batch import RuntimeBatchRequest
 from great_expectations.data_context import BaseDataContext
 from great_expectations.data_context.types.base import DataContextConfig
@@ -92,7 +93,7 @@ def build_checkpoint(
     )
 
 
-def run_validation(dataset_name: str, gcs_uri: str) -> str:
+def run_validation(dataset_name: str, gcs_uri: str) -> CheckpointResult:
     """Run the expectation suite"""
 
     project_config = read_yml_from_gcs(
@@ -119,15 +120,7 @@ def run_validation(dataset_name: str, gcs_uri: str) -> str:
     )
 
     logger.info(f"Starting Validation for {gcs_uri}")
-    checkpoint_result = checkpoint.run()
-
-    if checkpoint_result["success"]:
-        logger.info("Validation successful")
-    else:
-        logger.error("Validation unsuccessful")
-        raise ValidationError
-
-    return checkpoint_result["success"]
+    return checkpoint.run()
 
 
 def main(data, context):  # pylint: disable=unused-argument
@@ -137,14 +130,13 @@ def main(data, context):  # pylint: disable=unused-argument
 
     dataset_name = extract_dataset_name(data["name"])
     data_uri = f"gs://{data['bucket']}/{data['name']}"
-    success = run_validation(dataset_name, data_uri)
-    if success:
+    checkpoint_result = run_validation(dataset_name, data_uri)
+
+    if checkpoint_result["success"]:
+        logger.info("Validation successful")
         move_blob(
             bucket_name=data["bucket"], blob_name=data["name"], prefix="validated"
         )
     else:
-        move_blob(
-            bucket_name=data["bucket"],
-            blob_name=data["name"],
-            prefix="failed_validation",
-        )
+        logger.error("Validation unsuccessful")
+        raise ValidationError
