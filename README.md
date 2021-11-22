@@ -9,6 +9,7 @@ Collection of useful data science, machine learning and data engineering topics 
 - [Best Practices](#bp)
 - [Matplotlib](#mpl)
 - [Jupyter](#j)
+- [GCP](#gcp)
 
 
 <a id='bp'></a>
@@ -35,3 +36,10 @@ Articles about Python and data science best practices
 | (Part 1) Voilà! Interactive Python Dashboards Straight from your Jupyter Notebook | [Blog](https://engineeringfordatascience.com/posts/voila_python_dashboard_part1/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/jupyter/voila)|
 | (Part 2) Voilà! Optimising Python Dashboard Performance | [Blog](https://engineeringfordatascience.com/posts/voila_python_dashboard_part2/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/jupyter/voila)|
 | (Part 3) Voilà! Deploy your Jupyter Notebook Based Python Dashboard on Heroku | [Blog](https://engineeringfordatascience.com/posts/voila_python_dashboard_part3/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/jupyter/voila)|
+
+<a id='gcp'></a>
+## Google Cloud Platform (GCP)
+
+|Title|Article|Repository|
+|-------------|:-------------:|:----------:|
+| Event Driven Data Validation with Google Cloud Functions and Great Expectations | [Blog](https://engineeringfordatascience.com/posts/event_driven_data_validation_with_google_cloud_functions_and_great_expectations/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/gcp/cloud-functions/event-driven-testing)|
