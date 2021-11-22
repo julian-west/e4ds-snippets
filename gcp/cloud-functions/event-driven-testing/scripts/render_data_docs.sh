@@ -1,4 +1,4 @@
-# Copy the data docs to local computer to render the validation results
+# Copy the data docs to local computer to render the great expectations validation results UI
 # Data docs will be available in the data_docs folder which is not under version control
 # The index.html will open automatically
 set -e
@@ -12,7 +12,7 @@ fi
 
 if [ -z "$VALIDATION_BUCKET" ]
 then
-    echo "No bucket specificed: Set the \$VALIDATION_BUCKET env variable or supply the bucket name as an argument"
+    echo "No bucket specified: Set the \$VALIDATION_BUCKET env variable or supply the bucket name as an argument"
     echo "Aborting..."
     exit 1
 fi
