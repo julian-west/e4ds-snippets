@@ -1,7 +1,7 @@
 """Great Expectations Checkpoint"""
 import logging
 import os
-from typing import Any
+from typing import Any, Dict
 
 from great_expectations.checkpoint import SimpleCheckpoint
 from great_expectations.checkpoint.types.checkpoint_result import CheckpointResult
@@ -43,12 +43,12 @@ def build_data_context(config: DataContextConfig) -> BaseDataContext:
 
 
 def build_batch_request(
-    gcs_file_path: str, batch_spec_passthrough: dict[str, Any]
+    gcs_uri: str, batch_spec_passthrough: dict[str, Any]
 ) -> RuntimeBatchRequest:
     """Build the batch request which specifies which data file to test
 
     Args:
-        gcs_file_path (str): gcs file path to the data which needs to be tested
+        gcs_uri (str): gcs uri location of the data which needs to be tested
         batch_spec_passthrough (dict): dictionary containing file specific information
             for reading the file. E.g. the pd.read_csv arguments
 
@@ -60,8 +60,8 @@ def build_batch_request(
     return RuntimeBatchRequest(
         datasource_name="my_gcs_datasource",
         data_connector_name="default_runtime_data_connector_name",
-        data_asset_name=gcs_file_path,
-        runtime_parameters={"path": gcs_file_path},
+        data_asset_name=gcs_uri,
+        runtime_parameters={"path": gcs_uri},
         batch_identifiers={"default_identifier_name": "default_identifier"},
         batch_spec_passthrough=batch_spec_passthrough,
     )
@@ -74,6 +74,7 @@ def build_checkpoint(
     batch_request: RuntimeBatchRequest,
 ) -> SimpleCheckpoint:
     """Build the great expectations checkpoint"""
+
     file_name = "-".join(batch_request.data_asset_name.split("/")[3:])
 
     checkpoint_config = {
@@ -93,24 +94,18 @@ def build_checkpoint(
     )
 
 
-def run_validation(dataset_name: str, gcs_uri: str) -> CheckpointResult:
+def run_validation(
+    dataset_name: str,
+    gcs_uri: str,
+    project_config: Dict[str, Any],
+    batch_spec_passthrough: Dict[str, Any],
+) -> CheckpointResult:
     """Run the expectation suite"""
 
-    project_config = read_yml_from_gcs(
-        bucket_name=VALIDATION_BUCKET,
-        blob_name="great_expectations.yml",
-        template=YAML_TEMPLATE,
-    )
-
-    batch_spec_passthrough = read_yml_from_gcs(
-        bucket_name=VALIDATION_BUCKET,
-        blob_name=f"loading_args/{dataset_name}.yml",
-        template=YAML_TEMPLATE,
-    )
-
     logger.info("Building great expectations configs")
+
     context_config = build_data_context_config(project_config)
-    context = build_data_context(config=context_config)
+    context = build_data_context(context_config)
     batch_request = build_batch_request(gcs_uri, batch_spec_passthrough)
     checkpoint = build_checkpoint(
         checkpoint_name=dataset_name,
@@ -125,12 +120,27 @@ def run_validation(dataset_name: str, gcs_uri: str) -> CheckpointResult:
 
 def main(data, context):  # pylint: disable=unused-argument
     """Cloud function"""
+
+    # check new data file is in the landing_zone 'folder', else skip validation
     if not check_trigger_file_path(data["name"], "landing_zone"):
         return
 
     dataset_name = extract_dataset_name(data["name"])
     data_uri = f"gs://{data['bucket']}/{data['name']}"
-    checkpoint_result = run_validation(dataset_name, data_uri)
+    project_config = read_yml_from_gcs(
+        bucket_name=VALIDATION_BUCKET,
+        blob_name="great_expectations.yml",
+        template=YAML_TEMPLATE,
+    )
+    batch_spec_passthrough = read_yml_from_gcs(
+        bucket_name=VALIDATION_BUCKET,
+        blob_name=f"loading_args/{dataset_name}.yml",
+        template=YAML_TEMPLATE,
+    )
+
+    checkpoint_result = run_validation(
+        dataset_name, data_uri, project_config, batch_spec_passthrough
+    )
 
     if checkpoint_result["success"]:
         logger.info("Validation successful")
