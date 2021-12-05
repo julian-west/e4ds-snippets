@@ -1,5 +1,7 @@
 # Event Driven Testing on Google Cloud with Great Expectations
 
+![architecture](architecture_diagram.png "Solution Architecture")
+
 ## Directory Structure
 
 ```
