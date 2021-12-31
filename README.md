@@ -9,6 +9,7 @@ Collection of useful data science, machine learning and data engineering topics 
 - [Best Practices](#bp)
 - [Matplotlib](#mpl)
 - [Jupyter](#j)
+- [Pandas](#pandas)
 - [GCP](#gcp)
 
 
@@ -36,6 +37,13 @@ Articles about Python and data science best practices
 | (Part 1) Voilà! Interactive Python Dashboards Straight from your Jupyter Notebook | [Blog](https://engineeringfordatascience.com/posts/voila_python_dashboard_part1/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/jupyter/voila)|
 | (Part 2) Voilà! Optimising Python Dashboard Performance | [Blog](https://engineeringfordatascience.com/posts/voila_python_dashboard_part2/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/jupyter/voila)|
 | (Part 3) Voilà! Deploy your Jupyter Notebook Based Python Dashboard on Heroku | [Blog](https://engineeringfordatascience.com/posts/voila_python_dashboard_part3/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/jupyter/voila)|
+
+<a id='pandas'></a>
+## Pandas
+
+|Title|Article|Repository|
+|-------------|:-------------:|:----------:|
+| SQL-like Window Functions in Pandas | [Blog](https://engineeringfordatascience.com/posts/sql_like_window_functions_in_pandas/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/pandas)|
 
 <a id='gcp'></a>
 ## Google Cloud Platform (GCP)
