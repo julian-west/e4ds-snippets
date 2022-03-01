@@ -2,7 +2,7 @@
 
 # Engineering for Data Science (e4ds) - Snippets
 
-Collection of useful data science, machine learning and data engineering topics with code examples. Linked to posts in my blog [engineeringfordatascience.com](https://engineeringfordatascience.com/archives/)
+Collection of useful data science, machine learning and data engineering topics with code examples linked to posts in my blog [engineeringfordatascience.com](https://engineeringfordatascience.com/archives/)
 
 ## Contents
 
