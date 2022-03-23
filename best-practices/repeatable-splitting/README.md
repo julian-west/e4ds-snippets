@@ -1,11 +1,10 @@
 # ML Design Pattern: Repeatable Splitting
 
-> Blog post inspired by [ML Design Patterns book](https://www.oreilly.com/library/view/machine-learning-design/9781098115777/)
+> Blog post inspired by the [ML Design Patterns book](https://www.oreilly.com/library/view/machine-learning-design/9781098115777/)
 
 Sometimes `train_test_split()` does not guarantee reproducibility -- even if you set the random seed.
 
-If you want to retrain your model on new data (i.e. add new data to your original dataset), your train test splits will be completely different to the original training regime. Datapoints which
-
+If you want to retrain your model on new data (i.e. add new data to your original dataset), your train test splits will be completely different to the original training regime.
 
 This can be problematic for a few reasons:
 - It hard to accurately compare model accuracy between training runs. If data-points used for training one model are in the test set for other (and visa-versa) it will not be a fair comparison.
