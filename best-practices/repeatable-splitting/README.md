@@ -12,3 +12,5 @@ This can be problematic for a few reasons:
 - If you can't guarantee the order of your data will be the same between training runs, your train/test splits will be different.
 
 Ultimately, you want your results to reproducible and robust. Using hashing techniques to decide your train/test split can improve the robustness of your training runs.
+
+## Resources
