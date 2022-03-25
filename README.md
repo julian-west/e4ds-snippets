@@ -20,6 +20,7 @@ Articles about Python and data science best practices
 |Title|Article|Repository|
 |-------------|:-------------:|:----------:|
 | Which Python string formatting method should you be using in your data science project? | [Blog](https://engineeringfordatascience.com/posts/python_string_formatting_for_data_science/) | [Link](https://github.com/julian-west/e4ds-snippets/blob/master/best-practices/string-formatting/)|
+| Reproducible ML: Maybe you shouldn't be using Sklearn's train_test_split | Blog | [Link](https://github.com/julian-west/e4ds-snippets/blob/master/best-practices/repeatable-splitting/)|
 
 
 <a id='mpl'></a>
