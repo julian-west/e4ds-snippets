@@ -28,7 +28,8 @@ Articles about Python and data science best practices
 
 |Title|Article|Repository|
 |-------------|:-------------:|:----------:|
-| Plotting subplots in a loop | [Blog](https://engineeringfordatascience.com/posts/matplotlib_subplots/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/matplotlib)|
+| Plotting subplots in a loop | [Blog](https://engineeringfordatascience.com/posts/matplotlib_subplots/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/matplotlib/subplots_in_loop.ipynb)|
+| Making impactful charts using plt.suptitle | [Blog](https://engineeringfordatascience.com/posts/matplotlib_subtitles/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/matplotlib/subtitles.ipynb)|
 
 <a id='j'></a>
 ## Jupyter
