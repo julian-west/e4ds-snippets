@@ -1,4 +1,4 @@
-# Extracting Names and Artists from Spotify Playlist
+# Extracting Names and Artists from Spotify Playlist to CSV File
 
 I love using Python 🐍 to automate boring tasks.
 
@@ -14,7 +14,7 @@ In this post, we create a simple script to use the Spotify API to extract the so
 
 ## Getting Started
 
-#### Create virtual environment
+### Create virtual environment
 
 Use your favourite virtual environment manager to create a virtual environment and install the required packages in the `requirements.txt` file.
 
@@ -27,23 +27,23 @@ pyenv activate spotify
 pip install -r requirements.txt
 ```
 
-#### Create a Spotify account (if you do not already have one)
+### Create a Spotify account (if you do not already have one)
 
 Navigate to the [Spotify developer portal](https://developer.spotify.com/dashboard) and login.
 
-#### Create a new app
+### Create a new app
 
 Register a new app in the developer console to generate your API keys.
 
 <img src="img/create_app.jpg" width="600">
 
-#### Get your credentials
+### Get your credentials
 
 In order to authenticate your Python application with the Spotify API you need to get your authentication keys -- `client_id` and `client_secret`.
 
 <img src="img/secrets.jpg" width="600">
 
-#### Create `.env` file to store Spotify API credentials
+### Create `.env` file to store Spotify API credentials
 
 You should not store credentials directly in your scripts or in version control.
 
@@ -56,7 +56,7 @@ CLIENT_SECRET='your_client_secret'
 ```
 These credentials will be loaded into the script at runtime using the [dotenv library](https://pypi.org/project/python-dotenv/).
 
-#### Find playlist link
+### Find playlist link
 
 As the input to the program, we need to get the link to the playlist. This can be found in the Spotify UI:
 
@@ -64,7 +64,7 @@ As the input to the program, we need to get the link to the playlist. This can b
 
 For example: `https://open.spotify.com/playlist/6jAarBZaMmBLnSIeltPzkz?si=d42be5c6ec194bb9`
 
-#### Run script
+### Run script
 
 In the `main.py`, replace the `PLAYLIST_LINK` with the link to your target playlist, and then run the script.
 

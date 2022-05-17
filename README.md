@@ -7,10 +7,11 @@ Collection of useful data science, machine learning and data engineering topics 
 ## Contents
 
 - [Best Practices](#bp)
+- [GCP](#gcp)
 - [Matplotlib](#mpl)
 - [Jupyter](#j)
 - [Pandas](#pandas)
-- [GCP](#gcp)
+- [Web Scraping](#web-scraping)
 
 
 <a id='bp'></a>
@@ -53,3 +54,10 @@ Articles about Python and data science best practices
 |Title|Article|Repository|
 |-------------|:-------------:|:----------:|
 | Event Driven Data Validation with Google Cloud Functions and Great Expectations | [Blog](https://engineeringfordatascience.com/posts/event_driven_data_validation_with_google_cloud_functions_and_great_expectations/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/gcp/cloud-functions/event-driven-testing)|
+
+<a id='web-scraping'></a>
+## Web Scraping & Automation
+
+|Title|Article|Repository|
+|-------------|:-------------:|:----------:|
+| Export Spotify Playlist to CSV File with Python | [Blog](https://engineeringfordatascience.com/posts/export_spotify_playlist_to_csv_using_python/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/web-scraping/spotify)|
