@@ -54,6 +54,7 @@ Articles about Python and data science best practices
 |Title|Article|Repository|
 |-------------|:-------------:|:----------:|
 | Event Driven Data Validation with Google Cloud Functions and Great Expectations | [Blog](https://engineeringfordatascience.com/posts/event_driven_data_validation_with_google_cloud_functions_and_great_expectations/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/gcp/cloud-functions/event-driven-testing)|
+| Google Search Console API with Python | [Blog](https://engineeringfordatascience.com/posts/google_search_console_api_python/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/gcp/search-console)|
 
 <a id='web-scraping'></a>
 ## Web Scraping & Automation
