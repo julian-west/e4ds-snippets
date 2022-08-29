@@ -13,22 +13,21 @@ env_file = find_dotenv()
 load_dotenv()
 
 CONFIG_DIR = "./config"
-LOGS_DIR = "./logs"
+LOG_DIR = "./logs"
 
 
 def setup_logging():
-    if os.environ["ENVIRONMENT"] == "production":
-        config_path = f"{CONFIG_DIR}/logging.prod.ini"
-    else:
-        config_path = f"{CONFIG_DIR}/logging.dev.ini"
+    """Load logging configuration"""
+    log_configs = {"dev": "logging.dev.ini", "prod": "logging.prod.ini"}
+    config = log_configs.get(os.environ["ENV"], "logging.dev.ini")
+    config_path = "/".join([CONFIG_DIR, config])
 
     timestamp = datetime.now().strftime("%Y%m%d-%H:%M:%S")
-    log_output_filepath = f"{LOGS_DIR}/{timestamp}.log"
 
     logging.config.fileConfig(
         config_path,
         disable_existing_loggers=False,
-        defaults={"logfilename": log_output_filepath},
+        defaults={"logfilename": f"{LOG_DIR}/{timestamp}.log"},
     )
 
 
