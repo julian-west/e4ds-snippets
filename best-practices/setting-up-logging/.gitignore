@@ -1,0 +1,4 @@
+*.egg-info
+*__pycache__*
+*.log
+!logs/20220829-12:59:09.log

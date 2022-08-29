@@ -1,0 +1,6 @@
+2022-08-29 12:59:09,017 - INFO - __main__ - <module>:40 - Program started
+2022-08-29 12:59:09,017 - INFO - data_processing.processor - process_data:9 - Pre-processing data
+2022-08-29 12:59:09,017 - INFO - data_processing.processor - process_data:11 - Data pre-processing complete
+2022-08-29 12:59:09,017 - INFO - model_training.trainer - train:10 - Training model
+2022-08-29 12:59:09,017 - INFO - model_training.trainer - train:12 - Model training complete
+2022-08-29 12:59:09,017 - INFO - __main__ - <module>:43 - Program finished
