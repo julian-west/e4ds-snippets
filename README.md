@@ -11,6 +11,7 @@ Collection of useful data science, machine learning and data engineering topics 
 - [Matplotlib](#mpl)
 - [Jupyter](#j)
 - [Pandas](#pandas)
+- [Pytest](#pytest)
 - [Web Scraping](#web-scraping)
 
 
@@ -47,6 +48,13 @@ Articles about Python and data science best practices
 |Title|Article|Repository|
 |-------------|:-------------:|:----------:|
 | SQL-like Window Functions in Pandas | [Blog](https://engineeringfordatascience.com/posts/sql_like_window_functions_in_pandas/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/pandas)|
+
+<a id='pytest'></a>
+## Pytest
+
+|Title|Article|Repository|
+|-------------|:-------------:|:----------:|
+| How to use fixtures as arguments in parametrize | [Blog](https://engineeringfordatascience.com/posts/pytest_fixtures_with_parameterize) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/pytest/fixtures_and_parametrize)|
 
 <a id='gcp'></a>
 ## Google Cloud Platform (GCP)
