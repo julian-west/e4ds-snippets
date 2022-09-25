@@ -23,6 +23,7 @@ Articles about Python and data science best practices
 |-------------|:-------------:|:----------:|
 | Which Python string formatting method should you be using in your data science project? | [Blog](https://engineeringfordatascience.com/posts/python_string_formatting_for_data_science/) | [Link](https://github.com/julian-west/e4ds-snippets/blob/master/best-practices/string-formatting/)|
 | Reproducible ML: Maybe you shouldn't be using Sklearn's train_test_split | [Blog](https://engineeringfordatascience.com/posts/ml_repeatable_splitting_using_hashing/) | [Link](https://github.com/julian-west/e4ds-snippets/blob/master/best-practices/repeatable-splitting/)|
+| Setting up logging for Python projects | [Blog](https://engineeringfordatascience.com/posts/python_logging/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/best-practices/setting-up-logging)|
 
 
 <a id='mpl'></a>
