@@ -11,6 +11,7 @@ Collection of useful data science, machine learning and data engineering topics 
 - [Matplotlib](#mpl)
 - [Jupyter](#j)
 - [Pandas](#pandas)
+- [PySpark](#pyspark)
 - [Pytest](#pytest)
 - [Web Scraping](#web-scraping)
 
@@ -49,6 +50,13 @@ Articles about Python and data science best practices
 |Title|Article|Repository|
 |-------------|:-------------:|:----------:|
 | SQL-like Window Functions in Pandas | [Blog](https://engineeringfordatascience.com/posts/sql_like_window_functions_in_pandas/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/pandas)|
+
+<a id='pyspark'></a>
+## PySpark
+
+|Title|Article|Repository|
+|-------------|:-------------:|:----------:|
+| Unit testing in PySpark | Blog | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/pyspark/pyspark_unit_testing)|
 
 <a id='pytest'></a>
 ## Pytest
