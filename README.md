@@ -12,7 +12,7 @@ Collection of useful data science, machine learning and data engineering topics 
 - [Jupyter](#j)
 - [Pandas](#pandas)
 - [PySpark](#pyspark)
-- [Pytest](#pytest)
+- [PyTest](#pytest)
 - [Web Scraping](#web-scraping)
 
 
@@ -59,11 +59,12 @@ Articles about Python and data science best practices
 | Unit testing in PySpark | [Blog](https://engineeringfordatascience.com/posts/pyspark_unit_testing_with_pytest/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/pyspark/pyspark_unit_testing)|
 
 <a id='pytest'></a>
-## Pytest
+## PyTest
 
 |Title|Article|Repository|
 |-------------|:-------------:|:----------:|
 | How to use fixtures as arguments in parametrize | [Blog](https://engineeringfordatascience.com/posts/pytest_fixtures_with_parameterize) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/pytest/fixtures_and_parametrize)|
+| Tips for using PyTest | [Blog](https://engineeringfordatascience.com/posts/tips_for_using_pytest) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/pytest/pytest_tips)|
 
 <a id='gcp'></a>
 ## Google Cloud Platform (GCP)
