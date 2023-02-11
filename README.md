@@ -57,6 +57,7 @@ Articles about Python and data science best practices
 |Title|Article|Repository|
 |-------------|:-------------:|:----------:|
 | Unit testing in PySpark | [Blog](https://engineeringfordatascience.com/posts/pyspark_unit_testing_with_pytest/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/pyspark/pyspark_unit_testing)|
+| How to save the output of PySpark DataFrame 'show' to a variable | [Blog](https://engineeringfordatascience.com/posts/pyspark_save_show_string_to_variable/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/pyspark/show_string)|
 
 <a id='pytest'></a>
 ## PyTest
