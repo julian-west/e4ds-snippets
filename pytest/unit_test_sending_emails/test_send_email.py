@@ -2,10 +2,11 @@
 import smtplib
 from configparser import ConfigParser
 
-from send_email import send_pipeline_completion_notification
+from send_email import build_success_email_notification, send_pipeline_notification
 
 
-def test_send_pipeline_completion_notification(mocker):
+def test_send_pipeline_notification(mocker):
+    # setup
     config = ConfigParser()
     config.read("pipeline_config.ini")
 
@@ -20,10 +21,12 @@ def test_send_pipeline_completion_notification(mocker):
     mock_SMTP = mocker.MagicMock(name="smtplib.SMTP")
     mocker.patch("smtplib.SMTP", new=mock_SMTP)
 
-    send_pipeline_completion_notification(config, summary)
+    # run send email function
+    msg = build_success_email_notification(config, summary)
+    send_pipeline_notification(config, msg)
 
 
-def test_send_pipeline_completion_notification_smtpexception(mocker):
+def test_send_pipeline_notification_smtpexception(mocker):
     config = ConfigParser()
     config.read("pipeline_config.ini")
 
@@ -40,4 +43,5 @@ def test_send_pipeline_completion_notification_smtpexception(mocker):
     # mock STMPException error
     mock_SMTP.side_effect = smtplib.SMTPException
 
-    send_pipeline_completion_notification(config, summary)
+    msg = build_success_email_notification(config, summary)
+    send_pipeline_notification(config, msg)

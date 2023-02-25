@@ -11,7 +11,7 @@ def run_pipeline():
     """Some dummy code to run data pipeline"""
     # pipeline code ....
 
-    # example statistics from the run for reporting purposes
+    # example statistics generarted from the run for email reporting purposes
     summary = {
         "total_files": 100,
         "success": 100,
@@ -21,13 +21,12 @@ def run_pipeline():
     return summary
 
 
-def send_pipeline_completion_notification(
+def build_success_email_notification(
     config: ConfigParser, summary: dict[str, int]
-) -> None:
+) -> MIMEMultipart:
+    """Build MIME message object"""
     sender_email = config.get("email", "sender_email")
     receiver_email = config.get("email", "receiver_email")
-    host = config.get("email", "host")
-    port = int(config.get("email", "port"))
 
     msg = MIMEMultipart()
     msg["From"] = sender_email
@@ -48,6 +47,16 @@ def send_pipeline_completion_notification(
 
     msg.attach(msg_body)
 
+    return msg
+
+
+def send_pipeline_notification(config: ConfigParser, msg: MIMEMultipart) -> None:
+    """Send an email"""
+    host = config.get("email", "host")
+    port = int(config.get("email", "port"))
+    sender_email = config.get("email", "sender_email")
+    receiver_email = config.get("email", "receiver_email")
+
     try:
         with smtplib.SMTP(host, port) as server:
             server.send_message(
@@ -63,14 +72,20 @@ def send_pipeline_completion_notification(
         print("SMTP Exception. Email failed to send")
 
 
-if __name__ == "__main__":
+def main():
+    # read configuration file parameters
     config = ConfigParser()
     config.read("pipeline_config.ini")
 
     # print config to console for reference
     config.write(sys.stdout)
 
-    # run pipeline code
+    # run pipeline code and return the summary info to report in the email
     summary = run_pipeline()
 
-    send_pipeline_completion_notification(config, summary)
+    msg = build_success_email_notification(config, summary)
+    send_pipeline_notification(config, msg)
+
+
+if __name__ == "__main__":
+    main()
