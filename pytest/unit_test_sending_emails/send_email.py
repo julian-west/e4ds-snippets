@@ -36,7 +36,7 @@ def build_success_email_notification(
     email_body = f"""
     The pipeline has completed successfully.
 
-    Total files processed {summary.get('total_files')}
+    Total files processed: {summary.get('total_files')}
     Successful: {summary.get('success')}
     Failed: {summary.get('failed')}
 
@@ -51,21 +51,13 @@ def build_success_email_notification(
 
 
 def send_pipeline_notification(config: ConfigParser, msg: MIMEMultipart) -> None:
-    """Send an email"""
+    """Send an email, include some error handling"""
     host = config.get("email", "host")
     port = int(config.get("email", "port"))
-    sender_email = config.get("email", "sender_email")
-    receiver_email = config.get("email", "receiver_email")
 
     try:
         with smtplib.SMTP(host, port) as server:
-            server.send_message(
-                msg,
-                from_addr=sender_email,
-                to_addrs=receiver_email,
-                mail_options=[],
-                rcpt_options=[],
-            )
+            server.send_message(msg)
         print("Email notification sent successfully")
 
     except smtplib.SMTPException:
