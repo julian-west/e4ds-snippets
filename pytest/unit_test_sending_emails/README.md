@@ -1,5 +1,7 @@
 ## How to unit test sending emails with Pytest
 
+**[Blog post](https://engineeringfordatascience.com/posts/mock_smtp_email_using_pytest/)**
+
 It is common to send emails to stakeholders to notify them your pipeline is complete and the data is ready (or notify if there has been an error with processing).
 
 However, writing unit tests for the code that sends your emails can be tricky.
@@ -49,7 +51,6 @@ python send_email.py
 Look at the terminal where your local SMTP server is running (from the previous step) and you will see the email output printed to the console. This indicates that the email has been sent.
 
 Run the Python file a few times and you will see the ID in the console output changing. Each email will have a unique ID which shows a new email is being sent each time.
-
 
 **Run the test case**
 

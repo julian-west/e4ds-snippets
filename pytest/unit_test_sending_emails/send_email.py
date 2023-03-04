@@ -11,7 +11,7 @@ def run_pipeline():
     """Some dummy code to run data pipeline"""
     # pipeline code ....
 
-    # example statistics generarted from the run for email reporting purposes
+    # example statistics generated from the run for email reporting purposes
     summary = {
         "total_files": 100,
         "success": 100,
