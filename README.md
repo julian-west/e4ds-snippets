@@ -67,6 +67,7 @@ Articles about Python and data science best practices
 | How to use fixtures as arguments in parametrize | [Blog](https://engineeringfordatascience.com/posts/pytest_fixtures_with_parameterize) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/pytest/fixtures_and_parametrize)|
 | Tips for using PyTest | [Blog](https://engineeringfordatascience.com/posts/tips_for_using_pytest) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/pytest/pytest_tips)|
 | How to mock sending SMTP emails using PyTest | [Blog](https://engineeringfordatascience.com/posts/mock_smtp_email_using_pytest/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/pytest/unit_test_sending_emails)|
+| How to use allure-pytest and allure-pytest-bdd plugins in the same project | [Blog](https://engineeringfordatascience.com/posts/how_to_use_allure_pytest_bdd_and_allure_pytest_in_the_same_project/) | [Link](https://github.com/julian-west/e4ds-snippets/tree/master/pytest/allure_pytest_bdd_and_allure_pytest)|
 
 <a id='gcp'></a>
 ## Google Cloud Platform (GCP)
