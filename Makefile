@@ -8,6 +8,7 @@ clean-pyc:
 	find . -name '.pytest_cache' -exec rm -fr {} +
 	find . -name '.ipynb_checkpoints' -exec rm -fr {} +
 	find . -name '.mypy_cache' -exec rm -fr {} +
+	find . -name '.DS_Store' -exec rm -fr {} +
 
 clean-test:
 	rm -fr .tox/
